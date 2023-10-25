@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 
 import "./style.scss";
 
-const ModalEvent = ({ event }) => (
+const ModalEvent = ({ 
+  event 
+}) => (
     <div className="ModalEvent">
       <div className="ModalEvent__imageContainer">
         <img
