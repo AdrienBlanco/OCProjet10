@@ -12,13 +12,22 @@ const DataContext = createContext({});
 export const api = {
   loadData: async () => {
     const json = await fetch("/events.json");
-    return json.json();
+    const eventsDatas = await json.json();
+
+    eventsDatas.events.sort((a, b) => {
+      if (a.date < b.date) return 1;
+      return -1;
+    })
+    
+    return eventsDatas;
   },
 };
+
 
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [last, setLast] = useState();
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -27,16 +36,21 @@ export const DataProvider = ({ children }) => {
     }
   }, []);
   useEffect(() => {
-    if (data) return;
+    if (data) {
+      setLast(data?.events[0]);
+      return;
+    };
     getData();
+    
   });
-  
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        last,
       }}
     >
       {children}

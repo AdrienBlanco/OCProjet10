@@ -10,9 +10,10 @@ const Slider = () => {
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
+  
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
+      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // Ajout de -1 sur byDateDesc.length pour que la condition s'applique une fois sur la dernière image du slider
       5000
     );
   };
@@ -34,7 +35,7 @@ const Slider = () => {
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
                 <p>{event.description}</p>
-                <div>{getMonth(new Date(event.date))}</div>
+                <div>{getMonth(new Date(event.date))}</div> {/* pb de date à résoudre ici  */}
               </div>
             </div>
           </div>
@@ -45,7 +46,7 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={idx === radioIdx}
+                  checked={index === radioIdx} // utilisation du state index à la place de idx pour définir le bouton radio coché dans le slider
                 />
               ))}
             </div>

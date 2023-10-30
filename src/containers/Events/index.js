@@ -23,19 +23,9 @@ const EventList = () => {
     }
     return false;
 
-
-    //   [valeur1, valeur2, valeur3].filter( (element, index) => { 
-    //        // Garder l'élément
-    // return true
-    // Ecarter l'élément
-    // return false        
-    //  
-    //   })
-
-
   })
     .filter((event, index) => {
-      // filtrer element par page
+      // filtrer nb d'elements par page
       if (
         (currentPage - 1) * PER_PAGE <= index &&
         PER_PAGE * currentPage > index
@@ -44,7 +34,6 @@ const EventList = () => {
       }
       return false;
     });
-    console.log(filteredEvents);
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
@@ -60,16 +49,10 @@ const EventList = () => {
         <>
           <h3 className="SelectTitle">Catégories</h3>
 
-
-
-
           <Select
             selection={Array.from(typeList)}
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
-
-
-
 
 
           <div id="events" className="ListContainer">
