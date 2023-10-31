@@ -12,17 +12,9 @@ const DataContext = createContext({});
 export const api = {
   loadData: async () => {
     const json = await fetch("/events.json");
-    const eventsDatas = await json.json();
-
-    eventsDatas.events.sort((a, b) => {
-      if (a.date < b.date) return 1;
-      return -1;
-    })
-    
-    return eventsDatas;
+    return json.json();
   },
 };
-
 
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
@@ -37,11 +29,17 @@ export const DataProvider = ({ children }) => {
   }, []);
   useEffect(() => {
     if (data) {
-      setLast(data?.events[0]);
+      if (data.events) {
+        const dataCopy = data.events.slice(); // Création d'une copie du tableau data.events
+        dataCopy.sort((a, b) => { // classement du tableau d'évènements du plus ressent au plus ancien
+          if (a.date < b.date) return 1;
+          return -1;
+        })
+        setLast(dataCopy[0]); // setLast avec l'évènement le plus récent du tableau d'évènement
+      }
       return;
     };
     getData();
-    
   });
 
   return (
@@ -50,7 +48,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
-        last,
+        last, // Ajout de last dans le context pour le récupérer dans la page Home
       }}
     >
       {children}
