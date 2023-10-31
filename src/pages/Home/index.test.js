@@ -20,8 +20,10 @@ describe("When Form is created", () => {
           bubbles: true,
         })
       );
-      await screen.findByText("En cours");
-      await screen.findByText("Message envoyé !");
+      if (fireEvent) {
+        await screen.findByText("En cours");
+        await screen.findByText("Message envoyé !");
+      }
     });
   });
 });
@@ -29,23 +31,23 @@ describe("When Form is created", () => {
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-      render(<Home />);
-      const events = screen.getByTestId("events");
-      expect(events).toBeDefined();
+    render(<Home />);
+    const events = screen.getByTestId("events-testid");
+    expect(events).toBeDefined();
   })
   it("a list a people is displayed", () => {
-      render(<Home />);
-      const people = screen.getByTestId("people");
-      expect(people).toBeDefined();
+    render(<Home />);
+    const people = screen.getByTestId("people-testid");
+    expect(people).toBeDefined();
   })
   it("a footer is displayed", () => {
-      render(<Home />);
-      const footer = screen.getByTestId("footer");
-      expect(footer).toBeDefined();
+    render(<Home />);
+    const footer = screen.getByTestId("footer-testid");
+    expect(footer).toBeDefined();
   })
   it("an event card, with the last event, is displayed", () => {
-      render(<Home />);
-      const lastEvent = screen.getByTestId("last-event");
-      expect(lastEvent).toBeDefined();
+    render(<Home />);
+    const last = screen.getByTestId("last-testid");
+    expect(last).toBeDefined();
   })
 });

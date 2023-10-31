@@ -51,11 +51,11 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section className="EventsContainer" id="nos-realisations" data-testid="events"> {/* Ajout d'un id pour le lien du volet de navigation + data-testid */}
+      <section className="EventsContainer" id="nos-realisations" data-testid="events-testid"> {/* Ajout d'un id pour le lien du volet de navigation + data-testid */}
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section className="PeoplesContainer" id="notre-equipe" data-testid="people"> {/* Ajout d'un id pour le lien du volet de navigation + data-testid */}
+      <section className="PeoplesContainer" id="notre-equipe" data-testid="people-testid"> {/* Ajout d'un id pour le lien du volet de navigation + data-testid */}
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
@@ -113,8 +113,8 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row" data-testid="footer"> {/* Ajout d'un data-testid */}
-      <div className="col presta" data-testid="last-event"> {/* Ajout d'un data-testid */}
+    <footer className="row" data-testid="footer-testid"> {/* Ajout d'un data-testid */}
+      <div className="col presta" data-testid="last-testid"> {/* Ajout d'un data-testid */}
         <h3>Notre derniére prestation</h3>
         {last && <EventCard // vérifie si last existe avant d'afficher le component
           imageSrc={last?.cover}
