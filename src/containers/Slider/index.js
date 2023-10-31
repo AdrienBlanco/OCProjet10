@@ -13,14 +13,16 @@ const Slider = () => {
 
   const nextCard = () => {
     if (byDateDesc) { // condition pour éviter les erreurs si les data ne sont pas encore fetch au moment du rendu
-      setTimeout(
-        () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // Ajout de -1 sur byDateDesc.length pour que la condition s'applique une fois sur la dernière image du slider
-        5000
-      );
+      setIndex(index < byDateDesc.length - 1 ? index + 1 : 0); // Ajout de -1 sur byDateDesc.length pour que la condition s'applique lorsqu'on est sur la dernière image du slider
     }
   };
   useEffect(() => {
-    nextCard();
+    const time = setTimeout(() => { // déplacement de setTimeout dans useEffect pour remettre le compteur à 0 à chaque changement du slider
+      nextCard();
+    }, 5000); 
+    return () => {
+      clearTimeout(time);
+    };
   });
   return (
     <div className="SlideCardList">
@@ -39,7 +41,7 @@ const Slider = () => {
             </div>
           </div>
         </div>
-      ))} {/* exctration des boutons radio en dehors du mapping de SlideCardList pour éviter les doublons inutiles */}
+      ))} {/* extration des boutons radio en dehors du mapping de SlideCardList pour éviter les doublons inutiles */}
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
           {byDateDesc?.map((event, radioIdx) => (
