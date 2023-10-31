@@ -27,20 +27,17 @@ export const DataProvider = ({ children }) => {
       setError(err);
     }
   }, []);
+
   useEffect(() => {
-    if (data) {
-      if (data.events) {
-        const dataCopy = data.events.slice(); // Création d'une copie du tableau data.events
-        dataCopy.sort((a, b) => { // classement du tableau d'évènements du plus ressent au plus ancien
-          if (a.date < b.date) return 1;
-          return -1;
-        })
-        setLast(dataCopy[0]); // setLast avec l'évènement le plus récent du tableau d'évènement
-      }
+    if (!data || !data.events) { // Si data ou data.events n'existe pas, on appelle getData()
+      getData();
       return;
-    };
-    getData();
-  });
+    }
+  
+    const dataCopy = [...data.events]; // copie de data.events, pour classer du plus au moins récent
+    dataCopy.sort((a, b) => (a.date < b.date ? 1 : -1));
+    setLast(dataCopy[0]); // set du state last avec l'event le plus récent du tableau dataCopy
+  }, [data, getData]); // appel du hook useEffect à chaque modification de data ou getData
 
   return (
     <DataContext.Provider
