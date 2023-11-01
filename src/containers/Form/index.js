@@ -11,6 +11,25 @@ const Form = ({ onSuccess, onError }) => {
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
+
+      // Vérification des champs du formulaire pour bloquer l'éxécution si tous les champs ne sont pas remplis
+      const form = evt.target;
+      const fields = form.querySelectorAll("input[name], textarea[name], select[name]");
+      let isFormValid = true;
+
+      fields.forEach((field) => {
+        if (!field.value) {
+          isFormValid = false;
+          field.classList.add("field-empty"); // Ajoute la classe si le champ est vide
+        } else {
+          field.classList.remove("field-empty"); // Supprime la classe si le champ a une valeur
+        }
+      });
+
+      if (!isFormValid) {
+        return; // Arrête l'exécution si le formulaire n'est pas valide
+      }
+
       setSending(true);
       // We try to call mockContactApi
       try {
@@ -28,8 +47,8 @@ const Form = ({ onSuccess, onError }) => {
     <form onSubmit={sendContact}>
       <div className="row">
         <div className="col">
-          <Field placeholder="" label="Nom" />
-          <Field placeholder="" label="Prénom" />
+          <Field placeholder="" label="Nom" name="Nom" /> { /* Ajout des props name dans Field pour différencier les champs du formulaire */}
+          <Field placeholder="" label="Prénom" name="Prénom" />
           <Select
             selection={["Personel", "Entreprise"]}
             onChange={() => null}
@@ -37,7 +56,7 @@ const Form = ({ onSuccess, onError }) => {
             type="large"
             titleEmpty
           />
-          <Field placeholder="" label="Email" />
+          <Field placeholder="" label="Email" name="Email" />
           <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
             {sending ? "En cours" : "Envoyer"}
           </Button>
