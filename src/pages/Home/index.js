@@ -10,6 +10,7 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
+import ModalEvent from "../../containers/ModalEvent";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
@@ -116,14 +117,24 @@ const Page = () => {
     <footer className="row" data-testid="footer-testid"> {/* Ajout d'un data-testid */}
       <div className="col presta" data-testid="last-testid"> {/* Ajout d'un data-testid */}
         <h3>Notre derniére prestation</h3>
-        {last && <EventCard // vérifie si last existe avant d'afficher le component
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label={last?.type}
-        />}
+        {last && <Modal // vérifie si last existe avant d'afficher le component
+          Content={
+            <ModalEvent // Ajout de ModalEvent pour ouvrir une modale avec les infos du dernier évènement
+              event={last}
+            />}
+        >
+          {({ setIsOpened }) => (
+            <EventCard
+              onClick={() => setIsOpened(true)} // Ajout de onClick pour ouvrir la modale en cliquant sur le dernier évènement
+              imageSrc={last?.cover}
+              title={last?.title}
+              date={new Date(last?.date)}
+              small
+              label={last?.type}
+            />)}
+        </Modal>}
       </div>
+
       <div className="col contact">
         <h3>Contactez-nous</h3>
         <address>45 avenue de la République, 75000 Paris</address>
