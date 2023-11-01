@@ -20,10 +20,8 @@ describe("When Form is created", () => {
           bubbles: true,
         })
       );
-      if (fireEvent) { // Ajout d'une condition pour prendre en compte fireEvent dans la réussite des tests
         await screen.findByText("En cours");
         await screen.findByText("Message envoyé !");
-      }
     });
   });
 });
