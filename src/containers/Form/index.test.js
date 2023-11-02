@@ -25,7 +25,7 @@ describe("When Events is created", () => {
         await screen.findByText("En cours");
         await screen.findByText("Envoyer");
         expect(onSuccess).toHaveBeenCalled();
-      }, 5000); // Ajout d'un délai d'une seconde pour simuler l'envoi du formulaire au clic sur le bouton submit
+      }, 1000); // Ajout d'un délai d'une seconde pour simuler l'envoi du formulaire au clic sur le bouton submit
     });
   });
 });
