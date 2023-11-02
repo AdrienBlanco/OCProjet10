@@ -16,13 +16,12 @@ const EventList = () => {
     (!type
       ? data?.events
       : data?.events) || []
-  ).filter((event) => {
-    // filtrer categorie
+  ).filter((event) => { // Ajout d'un filtre intermédiaire pour afficher les events en fonction du type (catégorie) sélectionné
+    // filtrer les évènements par catégories 
     if (!type || event.type === type) {
       return true;
     }
     return false;
-
   })
     .filter((event, index) => {
       // filtrer nb d'elements par page
