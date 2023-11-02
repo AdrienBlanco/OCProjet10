@@ -16,13 +16,13 @@ const EventList = () => {
     (!type
       ? data?.events
       : data?.events) || []
-  ).filter((event) => { // Ajout d'un filtre intermédiaire pour afficher les events en fonction du type (catégorie) sélectionné
-    // filtrer les évènements par catégories 
-    if (!type || event.type === type) {
-      return true;
-    }
-    return false;
-  })
+  )
+    .filter((event) => { // Ajout d'un filtre intermédiaire pour afficher les events en fonction du type (catégorie) sélectionné
+      if (!type || event.type === type) { // inclus tout si pas de catégorie sélectionnée ou inclus la catégorie qui a été sélectionnée (event.type)
+        return true;
+      }
+      return false;
+    })
     .filter((event, index) => {
       // filtrer nb d'elements par page
       if (
@@ -53,11 +53,11 @@ const EventList = () => {
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
-              <Modal 
-                key={event.id} 
+              <Modal
+                key={event.id}
                 Content={
-                  <ModalEvent 
-                    event={event} 
+                  <ModalEvent
+                    event={event}
                   />}
               >
                 {({ setIsOpened }) => (
