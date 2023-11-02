@@ -15,6 +15,8 @@ const Form = ({ onSuccess, onError }) => {
       // Vérification des champs du formulaire pour bloquer l'éxécution si tous les champs ne sont pas remplis
       const form = evt.target;
       const fields = form.querySelectorAll("input[name], textarea[name], select[name]");
+      const selectValue = fields[2].value; // Valeur du selecteur
+      const selectField = form.querySelector(".Select"); // Champs du formulaire
       let isFormValid = true;
 
       fields.forEach((field) => {
@@ -25,6 +27,13 @@ const Form = ({ onSuccess, onError }) => {
           field.classList.remove("field-empty"); // Supprime la classe si le champ a une valeur
         }
       });
+
+      if (selectValue !== "Personel" && selectValue !== "Entreprise") { // Si aucun choix dans le sélecteur alors on ajout la classe, sinon on l'enlève
+        selectField.classList.add("field-empty");
+      } else {
+        selectField.classList.remove("field-empty");
+      }
+
 
       if (!isFormValid) {
         return; // Arrête l'exécution si le formulaire n'est pas valide
