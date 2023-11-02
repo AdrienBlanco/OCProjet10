@@ -28,12 +28,11 @@ const Form = ({ onSuccess, onError }) => {
         }
       });
 
-      if (selectValue !== "Personel" && selectValue !== "Entreprise") { // Si aucun choix dans le sélecteur alors on ajout la classe, sinon on l'enlève
+      if (!selectValue) { // Si aucun choix dans le sélecteur alors on ajout la classe, sinon on l'enlève
         selectField.classList.add("field-empty");
       } else {
         selectField.classList.remove("field-empty");
       }
-
 
       if (!isFormValid) {
         return; // Arrête l'exécution si le formulaire n'est pas valide
